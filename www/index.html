@@ -4,386 +4,328 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#1a56a0">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="/manifest.json">
-<title>Figurinhas da Copa ðŸ†</title>
+<title>Figurinhas da Copa</title>
 <style>
-  :root {
-    --azul: #1a56a0;
-    --azul-light: #2e75b6;
-    --azul-bg: #e8f1fb;
-    --verde: #1a7a3c;
-    --verde-bg: #e6f4ec;
-    --laranja: #c05a00;
-    --laranja-bg: #fef3e6;
-    --vermelho: #b91c1c;
-    --vermelho-bg: #fde8e8;
-    --cinza: #6b7280;
-    --cinza-bg: #f3f4f6;
-    --branco: #ffffff;
-    --sombra: 0 2px 8px rgba(0,0,0,.12);
-    --radius: 12px;
-    --header-h: 58px;
-    --nav-h: 60px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f4f8; color: #1f2937; }
+:root {
+  --azul: #1a56a0;
+  --azul-light: #2e75b6;
+  --azul-bg: #e8f1fb;
+  --verde: #1a7a3c;
+  --verde-bg: #e6f4ec;
+  --laranja: #c05a00;
+  --laranja-bg: #fef3e6;
+  --vermelho: #b91c1c;
+  --vermelho-bg: #fde8e8;
+  --cinza: #6b7280;
+  --cinza-bg: #f3f4f6;
+  --branco: #ffffff;
+  --sombra: 0 2px 8px rgba(0,0,0,.12);
+  --radius: 12px;
+  --header-h: 58px;
+  --nav-h: 60px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f4f8; color: #1f2937; }
 
-  /* â”€â”€ HEADER â”€â”€ */
-  header {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    height: var(--header-h);
-    background: var(--azul);
-    display: flex; align-items: center; gap: 10px; padding: 0 16px;
-    box-shadow: 0 2px 6px rgba(0,0,0,.25);
-  }
-  header h1 { color: #fff; font-size: 1.1rem; font-weight: 700; flex: 1; }
-  #resumo-header { color: rgba(255,255,255,.8); font-size: .78rem; text-align: right; line-height: 1.4; }
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h);
+  background: var(--azul);
+  display: flex; align-items: center; gap: 10px; padding: 0 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+}
+header h1 { color: #fff; font-size: 1.1rem; font-weight: 700; flex: 1; }
+#resumo-header { color: rgba(255,255,255,.8); font-size: .78rem; text-align: right; line-height: 1.4; }
 
-  /* â”€â”€ NAV BOTTOM â”€â”€ */
-  nav {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-    height: var(--nav-h);
-    background: var(--branco);
-    display: flex;
-    border-top: 1px solid #ddd;
-    box-shadow: 0 -2px 6px rgba(0,0,0,.08);
-  }
-  nav button {
-    flex: 1; border: none; background: none; cursor: pointer;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-    font-size: .65rem; font-weight: 600; color: var(--cinza); transition: color .15s, background .15s;
-    padding: 6px 0;
-  }
-  nav button .icon { font-size: 1.4rem; line-height: 1; }
-  nav button.active { color: var(--azul); background: var(--azul-bg); }
-  nav button:active { opacity: .7; }
+nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: var(--branco);
+  display: flex;
+  border-top: 1px solid #ddd;
+  box-shadow: 0 -2px 6px rgba(0,0,0,.08);
+}
+nav button {
+  flex: 1; border: none; background: none; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  font-size: .65rem; font-weight: 600; color: var(--cinza); transition: color .15s, background .15s;
+  padding: 6px 0;
+}
+nav button .icon { font-size: 1.3rem; line-height: 1; }
+nav button.active { color: var(--azul); background: var(--azul-bg); }
 
-  /* â”€â”€ MAIN CONTENT â”€â”€ */
-  main {
-    padding-top: calc(var(--header-h) + 12px);
-    padding-bottom: calc(var(--nav-h) + 12px);
-    padding-left: 12px; padding-right: 12px;
-    min-height: 100%;
-  }
+main {
+  padding-top: calc(var(--header-h) + 12px);
+  padding-bottom: calc(var(--nav-h) + 12px);
+  padding-left: 12px; padding-right: 12px;
+  min-height: 100%;
+}
 
-  /* â”€â”€ VIEWS â”€â”€ */
-  .view { display: none; }
-  .view.active { display: block; }
+.view { display: none; }
+.view.active { display: block; }
 
-  /* â”€â”€ CARDS â”€â”€ */
-  .card {
-    background: var(--branco); border-radius: var(--radius);
-    box-shadow: var(--sombra); padding: 16px; margin-bottom: 12px;
-  }
-  .card-title { font-size: .85rem; font-weight: 700; color: var(--cinza); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 10px; }
+.card { background: var(--branco); border-radius: var(--radius); box-shadow: var(--sombra); padding: 16px; margin-bottom: 12px; }
+.card-title { font-size: .85rem; font-weight: 700; color: var(--cinza); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 10px; }
 
-  /* â”€â”€ CHIPS â”€â”€ */
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-  .chip {
-    padding: 5px 12px; border-radius: 20px; font-size: .8rem; font-weight: 600;
-    cursor: pointer; border: 2px solid transparent; transition: all .15s;
-  }
-  .chip.tem { background: var(--verde-bg); color: var(--verde); }
-  .chip.falta { background: var(--cinza-bg); color: var(--cinza); }
-  .chip.repetida { background: var(--laranja-bg); color: var(--laranja); border-color: var(--laranja); }
-  .chip.selected { border-color: var(--azul); box-shadow: 0 0 0 2px var(--azul-bg); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.chip { padding: 5px 12px; border-radius: 20px; font-size: .8rem; font-weight: 600; cursor: pointer; border: 2px solid transparent; background: var(--cinza-bg); color: var(--cinza); }
+.chip:hover { border-color: var(--azul); }
 
-  /* â”€â”€ STAT BOXES â”€â”€ */
-  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
-  .stat { background: var(--branco); border-radius: var(--radius); padding: 14px; text-align: center; box-shadow: var(--sombra); }
-  .stat .n { font-size: 1.8rem; font-weight: 800; line-height: 1; }
-  .stat .label { font-size: .72rem; color: var(--cinza); margin-top: 2px; }
-  .stat.azul .n { color: var(--azul); }
-  .stat.verde .n { color: var(--verde); }
-  .stat.laranja .n { color: var(--laranja); }
-  .stat.vermelho .n { color: var(--vermelho); }
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+.stat { background: var(--branco); border-radius: var(--radius); padding: 14px; text-align: center; box-shadow: var(--sombra); }
+.stat .n { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+.stat .label { font-size: .72rem; color: var(--cinza); margin-top: 2px; }
+.stat.azul .n { color: var(--azul); }
+.stat.verde .n { color: var(--verde); }
+.stat.laranja .n { color: var(--laranja); }
+.stat.vermelho .n { color: var(--vermelho); }
 
-  /* â”€â”€ PROGRESS BAR â”€â”€ */
-  .progress-wrap { background: #e5e7eb; border-radius: 99px; height: 10px; overflow: hidden; margin-bottom: 6px; }
-  .progress-bar { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--azul-light), var(--verde)); transition: width .4s ease; }
-  .progress-label { font-size: .75rem; color: var(--cinza); text-align: right; }
+.progress-wrap { background: #e5e7eb; border-radius: 99px; height: 10px; overflow: hidden; margin-bottom: 6px; }
+.progress-bar { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--azul-light), var(--verde)); transition: width .4s ease; }
+.progress-label { font-size: .75rem; color: var(--cinza); text-align: right; }
 
-  /* â”€â”€ INPUTS â”€â”€ */
-  .input-row { display: flex; gap: 8px; align-items: center; }
-  input[type=text], input[type=number], select {
-    flex: 1; padding: 10px 12px; border: 2px solid #d1d5db; border-radius: 10px;
-    font-size: .95rem; outline: none; transition: border-color .15s;
-    background: #fff;
-  }
-  input:focus, select:focus { border-color: var(--azul); }
-  input[type=text] { text-transform: uppercase; }
+.input-row { display: flex; gap: 8px; align-items: center; }
+input[type=text], input[type=number], select {
+  flex: 1; padding: 10px 12px; border: 2px solid #d1d5db; border-radius: 10px;
+  font-size: .95rem; outline: none; transition: border-color .15s; background: #fff;
+}
+input:focus, select:focus { border-color: var(--azul); }
+input[type=text] { text-transform: uppercase; }
 
-  /* â”€â”€ BUTTONS â”€â”€ */
-  .btn {
-    padding: 10px 18px; border: none; border-radius: 10px; font-size: .9rem; font-weight: 700;
-    cursor: pointer; transition: opacity .15s, transform .1s; display: inline-flex; align-items: center; gap: 6px;
-  }
-  .btn:active { opacity: .8; transform: scale(.97); }
-  .btn-primary { background: var(--azul); color: #fff; }
-  .btn-green { background: var(--verde); color: #fff; }
-  .btn-orange { background: var(--laranja); color: #fff; }
-  .btn-red { background: var(--vermelho); color: #fff; }
-  .btn-gray { background: var(--cinza-bg); color: #374151; }
-  .btn-full { width: 100%; justify-content: center; margin-top: 8px; }
-  .btn-sm { padding: 6px 12px; font-size: .8rem; border-radius: 8px; }
+.btn {
+  padding: 10px 18px; border: none; border-radius: 10px; font-size: .9rem; font-weight: 700;
+  cursor: pointer; transition: opacity .15s; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:active { opacity: .8; }
+.btn-primary { background: var(--azul); color: #fff; }
+.btn-green { background: var(--verde); color: #fff; }
+.btn-orange { background: var(--laranja); color: #fff; }
+.btn-red { background: var(--vermelho); color: #fff; }
+.btn-gray { background: var(--cinza-bg); color: #374151; }
+.btn-full { width: 100%; justify-content: center; margin-top: 8px; }
+.btn-sm { padding: 6px 12px; font-size: .8rem; border-radius: 8px; }
 
-  /* â”€â”€ FIGURINHA ITEM â”€â”€ */
-  .fig-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 10px 0; border-bottom: 1px solid #f3f4f6;
-  }
-  .fig-item:last-child { border-bottom: none; }
-  .fig-badge {
-    min-width: 42px; height: 42px; border-radius: 10px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-size: .65rem; font-weight: 800; text-align: center; line-height: 1.1;
-  }
-  .fig-badge.tem { background: var(--verde-bg); color: var(--verde); }
-  .fig-badge.falta { background: var(--cinza-bg); color: var(--cinza); }
-  .fig-badge.repetida { background: var(--laranja-bg); color: var(--laranja); }
-  .fig-info { flex: 1; }
-  .fig-info .nome { font-size: .9rem; font-weight: 600; }
-  .fig-info .sub { font-size: .75rem; color: var(--cinza); }
-  .fig-actions { display: flex; gap: 6px; }
+.fig-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f3f4f6; }
+.fig-item:last-child { border-bottom: none; }
+.fig-badge {
+  min-width: 48px; height: 42px; border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: .65rem; font-weight: 800; text-align: center; line-height: 1.2;
+}
+.fig-badge.tem { background: var(--verde-bg); color: var(--verde); }
+.fig-badge.falta { background: var(--cinza-bg); color: var(--cinza); }
+.fig-badge.repetida { background: var(--laranja-bg); color: var(--laranja); }
+.fig-info { flex: 1; }
+.fig-info .nome { font-size: .9rem; font-weight: 600; }
+.fig-info .sub { font-size: .75rem; color: var(--cinza); }
+.fig-actions { display: flex; gap: 6px; }
 
-  /* â”€â”€ TOAST â”€â”€ */
-  #toast {
-    position: fixed; bottom: calc(var(--nav-h) + 14px); left: 50%; transform: translateX(-50%) translateY(20px);
-    background: #1f2937; color: #fff; padding: 10px 20px; border-radius: 20px;
-    font-size: .85rem; font-weight: 600; white-space: nowrap; opacity: 0;
-    transition: opacity .25s, transform .25s; z-index: 999; pointer-events: none;
-  }
-  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+#toast {
+  position: fixed; bottom: calc(var(--nav-h) + 14px); left: 50%; transform: translateX(-50%) translateY(20px);
+  background: #1f2937; color: #fff; padding: 10px 20px; border-radius: 20px;
+  font-size: .85rem; font-weight: 600; white-space: nowrap; opacity: 0;
+  transition: opacity .25s, transform .25s; z-index: 999; pointer-events: none;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* â”€â”€ BUSCA RESULT â”€â”€ */
-  #busca-result {
-    border-radius: var(--radius); padding: 16px; margin-top: 12px;
-    display: none;
-  }
-  #busca-result.tem { background: var(--verde-bg); border: 2px solid var(--verde); }
-  #busca-result.falta { background: var(--laranja-bg); border: 2px solid var(--laranja); }
-  #busca-result .res-title { font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
-  #busca-result .res-sub { font-size: .82rem; color: #374151; margin-bottom: 12px; }
+#busca-result { border-radius: var(--radius); padding: 16px; margin-top: 12px; display: none; }
+#busca-result.tem { background: var(--verde-bg); border: 2px solid var(--verde); }
+#busca-result.falta { background: var(--laranja-bg); border: 2px solid var(--laranja); }
+#busca-result .res-title { font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+#busca-result .res-sub { font-size: .82rem; color: #374151; margin-bottom: 12px; }
 
-  /* â”€â”€ TROCA MODAL â”€â”€ */
-  #modal-overlay {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5);
-    z-index: 200; align-items: flex-end; justify-content: center;
-  }
-  #modal-overlay.open { display: flex; }
-  #modal {
-    background: #fff; border-radius: 20px 20px 0 0; padding: 20px 16px 32px;
-    width: 100%; max-width: 480px;
-  }
-  #modal h3 { font-size: 1rem; font-weight: 800; margin-bottom: 14px; }
-  #modal .close-modal { float: right; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--cinza); }
+#modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5);
+  z-index: 200; align-items: flex-end; justify-content: center;
+}
+#modal-overlay.open { display: flex; }
+#modal { background: #fff; border-radius: 20px 20px 0 0; padding: 20px 16px 32px; width: 100%; max-width: 480px; }
+#modal h3 { font-size: 1rem; font-weight: 800; margin-bottom: 14px; }
+#modal .close-modal { float: right; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--cinza); }
 
-  /* â”€â”€ PAISES ACCORDION â”€â”€ */
-  .pais-section { margin-bottom: 10px; }
-  .pais-header {
-    background: var(--azul); color: #fff; padding: 12px 16px; border-radius: var(--radius);
-    display: flex; align-items: center; justify-content: space-between;
-    cursor: pointer; font-weight: 700; font-size: .95rem;
-    user-select: none;
-  }
-  .pais-header .pais-stats { font-size: .75rem; opacity: .85; }
-  .pais-header .chevron { transition: transform .2s; }
-  .pais-header.open .chevron { transform: rotate(180deg); }
-  .pais-body { display: none; background: var(--branco); border-radius: 0 0 var(--radius) var(--radius); padding: 0 12px; }
-  .pais-body.open { display: block; }
+.pais-section { margin-bottom: 10px; }
+.pais-header {
+  background: var(--azul); color: #fff; padding: 12px 16px; border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; font-weight: 700; font-size: .95rem; user-select: none;
+}
+.pais-header .pais-stats { font-size: .75rem; opacity: .85; }
+.pais-header .chevron { transition: transform .2s; display: inline-block; }
+.pais-header.open .chevron { transform: rotate(180deg); }
+.pais-body { display: none; background: var(--branco); border-radius: 0 0 var(--radius) var(--radius); padding: 0 12px; }
+.pais-body.open { display: block; }
 
-  /* â”€â”€ LOADING â”€â”€ */
-  .loading { text-align: center; padding: 30px; color: var(--cinza); font-size: .9rem; }
-  .spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid #ddd; border-top-color: var(--azul); border-radius: 50%; animation: spin .7s linear infinite; margin-bottom: 8px; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+.loading { text-align: center; padding: 30px; color: var(--cinza); font-size: .9rem; }
+.spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid #ddd; border-top-color: var(--azul); border-radius: 50%; animation: spin .7s linear infinite; margin-bottom: 8px; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-  /* â”€â”€ EMPTY STATE â”€â”€ */
-  .empty { text-align: center; padding: 30px; color: var(--cinza); }
-  .empty .icon { font-size: 2.5rem; margin-bottom: 8px; }
-  .empty p { font-size: .9rem; }
+.empty { text-align: center; padding: 30px; color: var(--cinza); }
+.empty p { font-size: .9rem; }
 
-  /* â”€â”€ AUTORA â”€â”€ */
-  .autora {
-    text-align: center; font-size: .7rem; color: var(--cinza);
-    padding: 6px 0 2px; opacity: .7; font-style: italic;
-  }
+.autora { text-align: center; font-size: .7rem; color: var(--cinza); padding: 6px 0 2px; opacity: .7; font-style: italic; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>ðŸ† Figurinhas da Copa</h1>
-  <div id="resumo-header">carregandoâ€¦</div>
+  <h1>Figurinhas da Copa</h1>
+  <div id="resumo-header">carregando...</div>
 </header>
 
 <main>
-  <!-- â”€â”€ VIEW: INÃCIO â”€â”€ -->
   <div id="view-inicio" class="view active">
     <div class="stats">
-      <div class="stat azul"><div class="n" id="s-total">â€”</div><div class="label">Total no Ã¡lbum</div></div>
-      <div class="stat verde"><div class="n" id="s-tenho">â€”</div><div class="label">Tenho</div></div>
-      <div class="stat vermelho"><div class="n" id="s-faltam">â€”</div><div class="label">Faltam</div></div>
-      <div class="stat laranja"><div class="n" id="s-rep">â€”</div><div class="label">Repetidas</div></div>
+      <div class="stat azul"><div class="n" id="s-total">-</div><div class="label">Total no album</div></div>
+      <div class="stat verde"><div class="n" id="s-tenho">-</div><div class="label">Tenho</div></div>
+      <div class="stat vermelho"><div class="n" id="s-faltam">-</div><div class="label">Faltam</div></div>
+      <div class="stat laranja"><div class="n" id="s-rep">-</div><div class="label">Repetidas</div></div>
     </div>
     <div class="card">
-      <div class="card-title">Progresso da coleÃ§Ã£o</div>
+      <div class="card-title">Progresso da colecao</div>
       <div class="progress-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
       <div class="progress-label" id="progress-label">0%</div>
     </div>
     <div class="card">
-      <div class="card-title">AÃ§Ãµes rÃ¡pidas</div>
-      <button class="btn btn-primary btn-full" onclick="goTo('busca')">ðŸ” Busca RÃ¡pida</button>
-      <button class="btn btn-orange btn-full" onclick="goTo('repetidas')">ðŸ”„ Ver Repetidas</button>
-      <button class="btn btn-gray btn-full" onclick="goTo('album')">ðŸ“– Abrir Ãlbum</button>
+      <div class="card-title">Acoes rapidas</div>
+      <button class="btn btn-primary btn-full" onclick="goTo('busca')">Busca Rapida</button>
+      <button class="btn btn-orange btn-full" onclick="goTo('repetidas')">Ver Repetidas</button>
+      <button class="btn btn-gray btn-full" onclick="goTo('album')">Abrir Album</button>
     </div>
-    <div class="autora">âœï¸ EspecificaÃ§Ã£o por Sara Morgensztern Bernardo</div>
+    <div class="autora">Especificacao por Sara Morgensztern Bernardo</div>
   </div>
 
-  <!-- â”€â”€ VIEW: BUSCA RÃPIDA â”€â”€ -->
   <div id="view-busca" class="view">
     <div class="card">
-      <div class="card-title">ðŸ” Busca RÃ¡pida</div>
-      <p style="font-size:.82rem;color:var(--cinza);margin-bottom:12px">Digite a sigla do paÃ­s e o nÃºmero da figurinha.</p>
+      <div class="card-title">Busca Rapida</div>
+      <p style="font-size:.82rem;color:var(--cinza);margin-bottom:12px">Digite a sigla do pais e o numero da figurinha.</p>
       <div class="input-row" style="margin-bottom:8px">
-        <input type="text" id="busca-sigla" placeholder="Sigla (ex: BRA)" maxlength="4" style="max-width:130px;text-transform:uppercase" oninput="this.value=this.value.toUpperCase()">
-        <input type="number" id="busca-num" placeholder="NÂº" min="1" max="999" style="max-width:90px">
+        <input type="text" id="busca-sigla" placeholder="Sigla (ex: BRA)" maxlength="4" oninput="this.value=this.value.toUpperCase()" style="max-width:130px">
+        <input type="number" id="busca-num" placeholder="Nr" min="1" max="999" style="max-width:90px">
         <button class="btn btn-primary" onclick="executarBusca()">Buscar</button>
       </div>
-
       <div id="busca-result">
         <div class="res-title" id="busca-res-title"></div>
         <div class="res-sub" id="busca-res-sub"></div>
         <div id="busca-res-actions"></div>
       </div>
-
       <div style="margin-top:10px;display:flex;gap:8px">
-        <button class="btn btn-gray btn-sm" onclick="salvarBusca()" id="btn-salvar" style="display:none">ðŸ’¾ Salvar</button>
-        <button class="btn btn-gray btn-sm" onclick="limparBusca()">ðŸ—‘ï¸ Limpar busca</button>
+        <button class="btn btn-gray btn-sm" onclick="salvarBusca()" id="btn-salvar" style="display:none">Salvar</button>
+        <button class="btn btn-gray btn-sm" onclick="limparBusca()">Limpar busca</button>
       </div>
     </div>
-
     <div class="card">
-      <div class="card-title">PaÃ­ses disponÃ­veis</div>
+      <div class="card-title">Paises disponiveis</div>
       <div class="chips" id="paises-chips-busca"></div>
     </div>
   </div>
 
-  <!-- â”€â”€ VIEW: REPETIDAS â”€â”€ -->
   <div id="view-repetidas" class="view">
-    <div class="card" id="rep-card">
-      <div class="card-title">ðŸ”„ Repetidas</div>
-      <div id="rep-list"><div class="loading"><div class="spinner"></div><br>carregandoâ€¦</div></div>
+    <div class="card">
+      <div class="card-title">Repetidas</div>
+      <div id="rep-list"><div class="loading"><div class="spinner"></div><br>carregando...</div></div>
     </div>
   </div>
 
-  <!-- â”€â”€ VIEW: ÃLBUM â”€â”€ -->
   <div id="view-album" class="view">
-    <div id="album-content"><div class="loading"><div class="spinner"></div><br>carregandoâ€¦</div></div>
+    <div id="album-content"><div class="loading"><div class="spinner"></div><br>carregando album...</div></div>
   </div>
 </main>
 
-<!-- â”€â”€ BOTTOM NAV â”€â”€ -->
 <nav>
   <button class="active" id="nav-inicio" onclick="goTo('inicio')">
-    <span class="icon">ðŸ </span>InÃ­cio
+    <span class="icon">&#8962;</span>Inicio
   </button>
   <button id="nav-busca" onclick="goTo('busca')">
-    <span class="icon">ðŸ”</span>Busca
+    <span class="icon">&#128269;</span>Busca
   </button>
   <button id="nav-repetidas" onclick="goTo('repetidas')">
-    <span class="icon">ðŸ”„</span>Repetidas
+    <span class="icon">&#8635;</span>Repetidas
   </button>
   <button id="nav-album" onclick="goTo('album')">
-    <span class="icon">ðŸ“–</span>Ãlbum
+    <span class="icon">&#128213;</span>Album
   </button>
 </nav>
 
-<!-- â”€â”€ MODAL TROCA â”€â”€ -->
 <div id="modal-overlay" onclick="fecharModal(event)">
   <div id="modal">
-    <button class="close-modal" onclick="fecharModal()">âœ•</button>
-    <h3>ðŸ”„ Registrar Troca</h3>
-    <p style="font-size:.82rem;color:var(--cinza);margin-bottom:14px">VocÃª entrega: <strong id="modal-entregue-nome"></strong><br>Qual figurinha vocÃª vai receber?</p>
+    <button class="close-modal" onclick="fecharModal()">x</button>
+    <h3>Registrar Troca</h3>
+    <p style="font-size:.82rem;color:var(--cinza);margin-bottom:14px">Voce entrega: <strong id="modal-entregue-nome"></strong><br>Qual figurinha vai receber?</p>
     <div class="input-row" style="margin-bottom:8px">
       <input type="text" id="modal-sigla" placeholder="Sigla (ex: ARG)" maxlength="4" oninput="this.value=this.value.toUpperCase()" style="max-width:120px">
-      <input type="number" id="modal-num" placeholder="NÂº" min="1" max="999" style="max-width:80px">
+      <input type="number" id="modal-num" placeholder="Nr" min="1" max="999" style="max-width:80px">
     </div>
-    <button class="btn btn-green btn-full" onclick="confirmarTroca()">âœ… Confirmar troca</button>
+    <button class="btn btn-green btn-full" onclick="confirmarTroca()">Confirmar troca</button>
   </div>
 </div>
 
-<!-- â”€â”€ TOAST â”€â”€ -->
 <div id="toast"></div>
 
 <script>
-const API = '';
-let currentView = 'inicio';
-let buscaFigId = null;
-let trocaEntregueId = null;
+var API = '';
+var buscaFigId = null;
+var trocaEntregueId = null;
 
-// â”€â”€ NavegaÃ§Ã£o â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function goTo(view) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+  document.querySelectorAll('nav button').forEach(function(b) { b.classList.remove('active'); });
   document.getElementById('view-' + view).classList.add('active');
   document.getElementById('nav-' + view).classList.add('active');
-  currentView = view;
   if (view === 'repetidas') carregarRepetidas();
   if (view === 'album') carregarAlbum();
   if (view === 'inicio') carregarResumo();
   if (view === 'busca') carregarPaisesChips();
 }
 
-// â”€â”€ Toast â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-function toast(msg, dur = 2200) {
-  const t = document.getElementById('toast');
+function toast(msg, dur) {
+  dur = dur || 2200;
+  var t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), dur);
+  setTimeout(function() { t.classList.remove('show'); }, dur);
 }
 
-// â”€â”€ API helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-async function apiFetch(url) {
-  const r = await fetch(API + url);
-  if (!r.ok) throw new Error(await r.text());
-  return r.json();
-}
-async function apiPost(url, body) {
-  const r = await fetch(API + url, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
+function apiFetch(url) {
+  return fetch(API + url).then(function(r) {
+    if (!r.ok) return r.text().then(function(t) { throw new Error(t); });
+    return r.json();
   });
-  if (!r.ok) throw new Error(await r.text());
-  return r.json();
 }
 
-// â”€â”€ Resumo / inÃ­cio â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-async function carregarResumo() {
-  try {
-    const d = await apiFetch('/api/resumo');
+function apiPost(url, body) {
+  return fetch(API + url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }).then(function(r) {
+    if (!r.ok) return r.text().then(function(t) { throw new Error(t); });
+    return r.json();
+  });
+}
+
+function carregarResumo() {
+  apiFetch('/api/resumo').then(function(d) {
     document.getElementById('s-total').textContent = d.total;
     document.getElementById('s-tenho').textContent = d.tenho;
     document.getElementById('s-faltam').textContent = d.faltam;
     document.getElementById('s-rep').textContent = d.repetidas;
-    const pct = d.total > 0 ? Math.round(d.tenho / d.total * 100) : 0;
+    var pct = d.total > 0 ? Math.round(d.tenho / d.total * 100) : 0;
     document.getElementById('progress-bar').style.width = pct + '%';
-    document.getElementById('progress-label').textContent = pct + '%  (' + d.tenho + '/' + d.total + ')';
+    document.getElementById('progress-label').textContent = pct + '% (' + d.tenho + '/' + d.total + ')';
     document.getElementById('resumo-header').innerHTML = d.tenho + '/' + d.total + ' figurinhas<br>' + d.repetidas + ' repetidas';
-  } catch(e) { console.error(e); }
+  }).catch(function(e) { console.error('resumo error:', e); });
 }
 
-// â”€â”€ Busca RÃ¡pida â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-async function carregarPaisesChips() {
-  const el = document.getElementById('paises-chips-busca');
+function carregarPaisesChips() {
+  var el = document.getElementById('paises-chips-busca');
   if (el.children.length > 0) return;
-  try {
-    const paises = await apiFetch('/api/paises');
-    el.innerHTML = paises.map(s =>
-      `<span class="chip falta" onclick="preencherSigla('${s}')">${s}</span>`
-    ).join('');
-  } catch(e) {}
+  apiFetch('/api/paises').then(function(paises) {
+    el.innerHTML = paises.map(function(s) {
+      return '<span class="chip" onclick="preencherSigla(\'' + s + '\')">' + s + '</span>';
+    }).join('');
+  }).catch(function() {});
 }
 
 function preencherSigla(sigla) {
@@ -391,55 +333,55 @@ function preencherSigla(sigla) {
   document.getElementById('busca-num').focus();
 }
 
-async function executarBusca() {
-  const sigla = document.getElementById('busca-sigla').value.trim().toUpperCase();
-  const num = parseInt(document.getElementById('busca-num').value);
-  if (!sigla || !num) { toast('âš ï¸ Preencha a sigla e o nÃºmero.'); return; }
-  const el = document.getElementById('busca-result');
+function executarBusca() {
+  var sigla = document.getElementById('busca-sigla').value.trim().toUpperCase();
+  var num = parseInt(document.getElementById('busca-num').value);
+  if (!sigla || !num) { toast('Preencha a sigla e o numero.'); return; }
+  var el = document.getElementById('busca-result');
   el.style.display = 'block';
   el.className = '';
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
-  try {
-    const fig = await apiFetch(`/api/busca?sigla=${sigla}&numero=${num}`);
+  apiFetch('/api/busca?sigla=' + sigla + '&numero=' + num).then(function(fig) {
     buscaFigId = fig.id;
-    const tem = fig.quantidade >= 1;
+    var tem = fig.quantidade >= 1;
     el.className = tem ? 'tem' : 'falta';
     document.getElementById('busca-res-title').textContent = tem
-      ? `âœ… VocÃª TEM essa figurinha!`
-      : `âŒ VocÃª NÃƒO TEM essa figurinha`;
-    const status = fig.quantidade >= 2 ? ` (${fig.quantidade} cÃ³pias â€” repetida)` : (fig.quantidade === 1 ? ' (1 cÃ³pia)' : ' (0 cÃ³pias)');
-    document.getElementById('busca-res-sub').textContent =
-      `${fig.sigla} #${fig.numero} â€” ${fig.nome}${status}`;
-    const actions = document.getElementById('busca-res-actions');
+      ? 'VOCE TEM essa figurinha!'
+      : 'VOCE NAO TEM essa figurinha';
+    var copias = fig.quantidade >= 2 ? ' (' + fig.quantidade + ' copias - repetida)' : (fig.quantidade === 1 ? ' (1 copia)' : ' (0 copias)');
+    document.getElementById('busca-res-sub').textContent = fig.sigla + ' #' + fig.numero + ' - ' + fig.nome + copias;
+    var actions = document.getElementById('busca-res-actions');
     if (tem) {
-      actions.innerHTML = `<button class="btn btn-orange btn-sm" onclick="adicionarRepetida(${fig.id})">ðŸ”„ Adicionar Ã s Repetidas</button>`;
+      actions.innerHTML = '<button class="btn btn-orange btn-sm" onclick="adicionarRepetida(' + fig.id + ')">+ Adicionar as Repetidas</button>';
     } else {
-      actions.innerHTML = `<button class="btn btn-green btn-sm" onclick="incluirFigurinha(${fig.id})">âž• Incluir no Ãlbum</button>`;
+      actions.innerHTML = '<button class="btn btn-green btn-sm" onclick="incluirFigurinha(' + fig.id + ')">+ Incluir no Album</button>';
     }
     document.getElementById('btn-salvar').style.display = '';
-  } catch(e) {
+  }).catch(function() {
     el.className = '';
-    el.innerHTML = `<div class="res-title" style="color:var(--vermelho)">âš ï¸ Figurinha nÃ£o encontrada</div><div class="res-sub">Verifique a sigla e o nÃºmero.</div>`;
+    el.innerHTML = '<div class="res-title" style="color:var(--vermelho)">Figurinha nao encontrada</div><div class="res-sub">Verifique a sigla e o numero.</div>';
     buscaFigId = null;
-  }
+  });
 }
 
-async function adicionarRepetida(id) {
-  await apiPost('/api/incluir', { figurinha_id: id });
-  toast('ðŸ”„ Adicionada Ã s repetidas!');
-  carregarResumo();
-  limparBusca();
+function adicionarRepetida(id) {
+  apiPost('/api/incluir', { figurinha_id: id }).then(function() {
+    toast('Adicionada as repetidas!');
+    carregarResumo();
+    limparBusca();
+  });
 }
 
-async function incluirFigurinha(id) {
-  await apiPost('/api/incluir', { figurinha_id: id });
-  toast('âœ… Figurinha incluÃ­da no Ã¡lbum!');
-  carregarResumo();
-  limparBusca();
+function incluirFigurinha(id) {
+  apiPost('/api/incluir', { figurinha_id: id }).then(function() {
+    toast('Figurinha incluida no album!');
+    carregarResumo();
+    limparBusca();
+  });
 }
 
 function salvarBusca() {
-  toast('ðŸ’¾ Resultado salvo.');
+  toast('Resultado salvo.');
   document.getElementById('btn-salvar').style.display = 'none';
 }
 
@@ -451,43 +393,38 @@ function limparBusca() {
   buscaFigId = null;
 }
 
-// â”€â”€ Repetidas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-async function carregarRepetidas() {
-  const el = document.getElementById('rep-list');
+function carregarRepetidas() {
+  var el = document.getElementById('rep-list');
   el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
-  try {
-    const reps = await apiFetch('/api/repetidas');
+  apiFetch('/api/repetidas').then(function(reps) {
     if (reps.length === 0) {
-      el.innerHTML = '<div class="empty"><div class="icon">ðŸŽ‰</div><p>Nenhuma repetida no momento!</p></div>';
+      el.innerHTML = '<div class="empty"><p>Nenhuma repetida no momento!</p></div>';
       return;
     }
-    el.innerHTML = reps.map(f => `
-      <div class="fig-item" id="rep-${f.id}">
-        <div class="fig-badge repetida">${f.sigla}<br>#${f.numero}</div>
-        <div class="fig-info">
-          <div class="nome">${f.nome}</div>
-          <div class="sub">${f.quantidade} cÃ³pias</div>
-        </div>
-        <div class="fig-actions">
-          <button class="btn btn-green btn-sm" onclick="abrirModalTroca(${f.id},'${f.nome}')">ðŸ”„</button>
-          <button class="btn btn-red btn-sm" onclick="excluirRepetida(${f.id})">ðŸ—‘ï¸</button>
-        </div>
-      </div>
-    `).join('');
-  } catch(e) {
+    el.innerHTML = reps.map(function(f) {
+      return '<div class="fig-item" id="rep-' + f.id + '">' +
+        '<div class="fig-badge repetida">' + f.sigla + '<br>#' + f.numero + '</div>' +
+        '<div class="fig-info"><div class="nome">' + f.nome + '</div><div class="sub">' + f.quantidade + ' copias</div></div>' +
+        '<div class="fig-actions">' +
+          '<button class="btn btn-green btn-sm" onclick="abrirModalTroca(' + f.id + ',\'' + f.nome + '\')">Trocar</button>' +
+          '<button class="btn btn-red btn-sm" onclick="excluirRepetida(' + f.id + ')">Excluir</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }).catch(function() {
     el.innerHTML = '<div class="empty"><p>Erro ao carregar.</p></div>';
-  }
+  });
 }
 
-async function excluirRepetida(id) {
-  if (!confirm('Remover uma cÃ³pia desta repetida?')) return;
-  await apiPost('/api/excluir-repetida', { figurinha_id: id });
-  toast('ðŸ—‘ï¸ Repetida removida!');
-  carregarRepetidas();
-  carregarResumo();
+function excluirRepetida(id) {
+  if (!confirm('Remover uma copia desta repetida?')) return;
+  apiPost('/api/excluir-repetida', { figurinha_id: id }).then(function() {
+    toast('Repetida removida!');
+    carregarRepetidas();
+    carregarResumo();
+  });
 }
 
-// â”€â”€ Modal Troca â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function abrirModalTroca(id, nome) {
   trocaEntregueId = id;
   document.getElementById('modal-entregue-nome').textContent = nome;
@@ -497,75 +434,73 @@ function abrirModalTroca(id, nome) {
 }
 
 function fecharModal(e) {
-  if (!e || e.target === document.getElementById('modal-overlay') || e.currentTarget === document.querySelector('.close-modal')) {
+  if (!e || e.target === document.getElementById('modal-overlay')) {
     document.getElementById('modal-overlay').classList.remove('open');
   }
 }
 
-async function confirmarTroca() {
-  const sigla = document.getElementById('modal-sigla').value.trim().toUpperCase();
-  const num = parseInt(document.getElementById('modal-num').value);
-  if (!sigla || !num) { toast('âš ï¸ Preencha a figurinha recebida.'); return; }
-  try {
-    const fig = await apiFetch(`/api/busca?sigla=${sigla}&numero=${num}`);
-    await apiPost('/api/trocar', { entregue_id: trocaEntregueId, recebida_id: fig.id });
-    toast('âœ… Troca registrada com sucesso!');
+function confirmarTroca() {
+  var sigla = document.getElementById('modal-sigla').value.trim().toUpperCase();
+  var num = parseInt(document.getElementById('modal-num').value);
+  if (!sigla || !num) { toast('Preencha a figurinha recebida.'); return; }
+  apiFetch('/api/busca?sigla=' + sigla + '&numero=' + num).then(function(fig) {
+    return apiPost('/api/trocar', { entregue_id: trocaEntregueId, recebida_id: fig.id });
+  }).then(function() {
+    toast('Troca registrada com sucesso!');
     fecharModal();
     carregarRepetidas();
     carregarResumo();
-  } catch(e) {
-    toast('âš ï¸ Figurinha recebida nÃ£o encontrada no catÃ¡logo.');
-  }
+  }).catch(function() {
+    toast('Figurinha recebida nao encontrada no catalogo.');
+  });
 }
 
-// â”€â”€ Ãlbum â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function _figHtml(f, sigla) {
   var cls = f.quantidade >= 2 ? 'repetida' : (f.quantidade === 1 ? 'tem' : 'falta');
-  var statusText = cls === 'tem' ? 'tenho' : cls === 'repetida' ? 'repetida' : 'falta';
+  var statusText = cls === 'tem' ? 'tenho' : (cls === 'repetida' ? 'repetida' : 'falta');
   var actions;
   if (f.quantidade === 0) {
-    actions = '<button class="btn btn-green btn-sm" onclick="addAlbum(' + f.id + ',this)">+ Incluir</button>';
+    actions = '<button class="btn btn-green btn-sm" onclick="addAlbum(' + f.id + ')">+ Incluir</button>';
   } else {
-    actions = '<button class="btn btn-orange btn-sm" onclick="addRepAlbum(' + f.id + ',this)">+Rep</button>' +
-              '<button class="btn btn-red btn-sm" onclick="remAlbum(' + f.id + ',this)">- Remover</button>';
+    actions = '<button class="btn btn-orange btn-sm" onclick="addRepAlbum(' + f.id + ')">+Rep</button>' +
+              ' <button class="btn btn-red btn-sm" onclick="remAlbum(' + f.id + ')">- Remover</button>';
   }
   return '<div class="fig-item">' +
     '<div class="fig-badge ' + cls + '">' + sigla + '<br>#' + f.numero + '</div>' +
-    '<div class="fig-info">' +
-      '<div class="nome">' + f.nome + '</div>' +
-      '<div class="sub">' + statusText + '</div>' +
-    '</div>' +
+    '<div class="fig-info"><div class="nome">' + f.nome + '</div><div class="sub">' + statusText + '</div></div>' +
     '<div class="fig-actions">' + actions + '</div>' +
   '</div>';
 }
 
-async function carregarAlbum() {
+function carregarAlbum() {
   var el = document.getElementById('album-content');
-  el.innerHTML = '<div class="loading"><div class="spinner"></div><br>carregando Ã¡lbumâ€¦</div>';
-  try {
-    var paises = await apiFetch('/api/paises');
-    var sections = await Promise.all(paises.map(function(s) { return apiFetch('/api/pais/' + s); }));
+  el.innerHTML = '<div class="loading"><div class="spinner"></div><br>carregando album...</div>';
+  apiFetch('/api/paises').then(function(paises) {
+    return Promise.all(paises.map(function(s) {
+      return apiFetch('/api/pais/' + s).then(function(figs) { return { sigla: s, figs: figs }; });
+    }));
+  }).then(function(results) {
     el.innerHTML = '';
-    paises.forEach(function(sigla, i) {
-      var figs = sections[i];
+    results.forEach(function(item) {
+      var sigla = item.sigla;
+      var figs = item.figs;
       var tenho = figs.filter(function(f) { return f.quantidade >= 1; }).length;
       var total = figs.length;
       var pct = Math.round(tenho / total * 100);
       var figsHtml = figs.map(function(f) { return _figHtml(f, sigla); }).join('');
-
       var sec = document.createElement('div');
       sec.className = 'pais-section';
       sec.innerHTML =
         '<div class="pais-header" onclick="togglePais(this)">' +
           '<span>' + sigla + '</span>' +
-          '<span class="pais-stats">' + tenho + '/' + total + ' (' + pct + '%) <span class="chevron">â–¼</span></span>' +
+          '<span class="pais-stats">' + tenho + '/' + total + ' (' + pct + '%) <span class="chevron">v</span></span>' +
         '</div>' +
         '<div class="pais-body">' + figsHtml + '</div>';
       el.appendChild(sec);
     });
-  } catch(e) {
-    el.innerHTML = '<div class="empty"><p>Erro ao carregar Ã¡lbum.</p></div>';
-  }
+  }).catch(function() {
+    el.innerHTML = '<div class="empty"><p>Erro ao carregar album.</p></div>';
+  });
 }
 
 function togglePais(header) {
@@ -573,22 +508,29 @@ function togglePais(header) {
   header.nextElementSibling.classList.toggle('open');
 }
 
-async function addAlbum(id, btn) {
-  await apiPost('/api/incluir', { figurinha_id: id });
-  toast('âœ… IncluÃ­da no Ã¡lbum!');
-  carregarAlbum(); carregarResumo();
+function addAlbum(id) {
+  apiPost('/api/incluir', { figurinha_id: id }).then(function() {
+    toast('Incluida no album!');
+    carregarAlbum(); carregarResumo();
+  });
 }
 
-async function addRepAlbum(id, btn) {
-  await apiPost('/api/incluir', { figurinha_id: id });
-  toast('ðŸ”„ Adicionada Ã s repetidas!');
-  carregarAlbum(); carregarResumo();
+function addRepAlbum(id) {
+  apiPost('/api/incluir', { figurinha_id: id }).then(function() {
+    toast('Adicionada as repetidas!');
+    carregarAlbum(); carregarResumo();
+  });
 }
 
-async function remAlbum(id, btn) {
-  await apiPost('/api/excluir-repetida', { figurinha_id: id });
-  toast('âž– Removida!');
-  carregarAlbum(); carregarResumo();
+function remAlbum(id) {
+  apiPost('/api/excluir-repetida', { figurinha_id: id }).then(function() {
+    toast('Removida!');
+    carregarAlbum(); carregarResumo();
+  });
 }
 
-// â”€â”€ Boot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+carregarResumo();
+carregarPaisesChips();
+</script>
+</body>
+</html>
