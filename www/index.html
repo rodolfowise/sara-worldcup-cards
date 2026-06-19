@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1a56a0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<title>Figurinhas da Copa 🏆</title>
+<style>
+  :root {
+    --azul: #1a56a0;
+    --azul-light: #2e75b6;
+    --azul-bg: #e8f1fb;
+    --verde: #1a7a3c;
+    --verde-bg: #e6f4ec;
+    --laranja: #c05a00;
+    --laranja-bg: #fef3e6;
+    --vermelho: #b91c1c;
+    --vermelho-bg: #fde8e8;
+    --cinza: #6b7280;
+    --cinza-bg: #f3f4f6;
+    --branco: #ffffff;
+    --sombra: 0 2px 8px rgba(0,0,0,.12);
+    --radius: 12px;
+    --header-h: 58px;
+    --nav-h: 60px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f4f8; color: #1f2937; }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--header-h);
+    background: var(--azul);
+    display: flex; align-items: center; gap: 10px; padding: 0 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.25);
+  }
+  header h1 { color: #fff; font-size: 1.1rem; font-weight: 700; flex: 1; }
+  #resumo-header { color: rgba(255,255,255,.8); font-size: .78rem; text-align: right; line-height: 1.4; }
+
+  /* ── NAV BOTTOM ── */
+  nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-h);
+    background: var(--branco);
+    display: flex;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 6px rgba(0,0,0,.08);
+  }
+  nav button {
+    flex: 1; border: none; background: none; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    font-size: .65rem; font-weight: 600; color: var(--cinza); transition: color .15s, background .15s;
+    padding: 6px 0;
+  }
+  nav button .icon { font-size: 1.4rem; line-height: 1; }
+  nav button.active { color: var(--azul); background: var(--azul-bg); }
+  nav button:active { opacity: .7; }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    padding-top: calc(var(--header-h) + 12px);
+    padding-bottom: calc(var(--nav-h) + 12px);
+    padding-left: 12px; padding-right: 12px;
+    min-height: 100%;
+  }
+
+  /* ── VIEWS ── */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--branco); border-radius: var(--radius);
+    box-shadow: var(--sombra); padding: 16px; margin-bottom: 12px;
+  }
+  .card-title { font-size: .85rem; font-weight: 700; color: var(--cinza); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 10px; }
+
+  /* ── CHIPS ── */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .chip {
+    padding: 5px 12px; border-radius: 20px; font-size: .8rem; font-weight: 600;
+    cursor: pointer; border: 2px solid transparent; transition: all .15s;
+  }
+  .chip.tem { background: var(--verde-bg); color: var(--verde); }
+  .chip.falta { background: var(--cinza-bg); color: var(--cinza); }
+  .chip.repetida { background: var(--laranja-bg); color: var(--laranja); border-color: var(--laranja); }
+  .chip.selected { border-color: var(--azul); box-shadow: 0 0 0 2px var(--azul-bg); }
+
+  /* ── STAT BOXES ── */
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+  .stat { background: var(--branco); border-radius: var(--radius); padding: 14px; text-align: center; box-shadow: var(--sombra); }
+  .stat .n { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+  .stat .label { font-size: .72rem; color: var(--cinza); margin-top: 2px; }
+  .stat.azul .n { color: var(--azul); }
+  .stat.verde .n { color: var(--verde); }
+  .stat.laranja .n { color: var(--laranja); }
+  .stat.vermelho .n { color: var(--vermelho); }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap { background: #e5e7eb; border-radius: 99px; height: 10px; overflow: hidden; margin-bottom: 6px; }
+  .progress-bar { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--azul-light), var(--verde)); transition: width .4s ease; }
+  .progress-label { font-size: .75rem; color: var(--cinza); text-align: right; }
+
+  /* ── INPUTS ── */
+  .input-row { display: flex; gap: 8px; align-items: center; }
+  input[type=text], input[type=number], select {
+    flex: 1; padding: 10px 12px; border: 2px solid #d1d5db; border-radius: 10px;
+    font-size: .95rem; outline: none; transition: border-color .15s;
+    background: #fff;
+  }
+  input:focus, select:focus { border-color: var(--azul); }
+  input[type=text] { text-transform: uppercase; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    padding: 10px 18px; border: none; border-radius: 10px; font-size: .9rem; font-weight: 700;
+    cursor: pointer; transition: opacity .15s, transform .1s; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn:active { opacity: .8; transform: scale(.97); }
+  .btn-primary { background: var(--azul); color: #fff; }
+  .btn-green { background: var(--verde); color: #fff; }
+  .btn-orange { background: var(--laranja); color: #fff; }
+  .btn-red { background: var(--vermelho); color: #fff; }
+  .btn-gray { background: var(--cinza-bg); color: #374151; }
+  .btn-full { width: 100%; justify-content: center; margin-top: 8px; }
+  .btn-sm { padding: 6px 12px; font-size: .8rem; border-radius: 8px; }
+
+  /* ── FIGURINHA ITEM ── */
+  .fig-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid #f3f4f6;
+  }
+  .fig-item:last-child { border-bottom: none; }
+  .fig-badge {
+    min-width: 42px; height: 42px; border-radius: 10px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: .65rem; font-weight: 800; text-align: center; line-height: 1.1;
+  }
+  .fig-badge.tem { background: var(--verde-bg); color: var(--verde); }
+  .fig-badge.falta { background: var(--cinza-bg); color: var(--cinza); }
+  .fig-badge.repetida { background: var(--laranja-bg); color: var(--laranja); }
+  .fig-info { flex: 1; }
+  .fig-info .nome { font-size: .9rem; font-weight: 600; }
+  .fig-info .sub { font-size: .75rem; color: var(--cinza); }
+  .fig-actions { display: flex; gap: 6px; }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed; bottom: calc(var(--nav-h) + 14px); left: 50%; transform: translateX(-50%) translateY(20px);
+    background: #1f2937; color: #fff; padding: 10px 20px; border-radius: 20px;
+    font-size: .85rem; font-weight: 600; white-space: nowrap; opacity: 0;
+    transition: opacity .25s, transform .25s; z-index: 999; pointer-events: none;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── BUSCA RESULT ── */
+  #busca-result {
+    border-radius: var(--radius); padding: 16px; margin-top: 12px;
+    display: none;
+  }
+  #busca-result.tem { background: var(--verde-bg); border: 2px solid var(--verde); }
+  #busca-result.falta { background: var(--laranja-bg); border: 2px solid var(--laranja); }
+  #busca-result .res-title { font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+  #busca-result .res-sub { font-size: .82rem; color: #374151; margin-bottom: 12px; }
+
+  /* ── TROCA MODAL ── */
+  #modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5);
+    z-index: 200; align-items: flex-end; justify-content: center;
+  }
+  #modal-overlay.open { display: flex; }
+  #modal {
+    background: #fff; border-radius: 20px 20px 0 0; padding: 20px 16px 32px;
+    width: 100%; max-width: 480px;
+  }
+  #modal h3 { font-size: 1rem; font-weight: 800; margin-bottom: 14px; }
+  #modal .close-modal { float: right; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--cinza); }
+
+  /* ── PAISES ACCORDION ── */
+  .pais-section { margin-bottom: 10px; }
+  .pais-header {
+    background: var(--azul); color: #fff; padding: 12px 16px; border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; font-weight: 700; font-size: .95rem;
+    user-select: none;
+  }
+  .pais-header .pais-stats { font-size: .75rem; opacity: .85; }
+  .pais-header .chevron { transition: transform .2s; }
+  .pais-header.open .chevron { transform: rotate(180deg); }
+  .pais-body { display: none; background: var(--branco); border-radius: 0 0 var(--radius) var(--radius); padding: 0 12px; }
+  .pais-body.open { display: block; }
+
+  /* ── LOADING ── */
+  .loading { text-align: center; padding: 30px; color: var(--cinza); font-size: .9rem; }
+  .spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid #ddd; border-top-color: var(--azul); border-radius: 50%; animation: spin .7s linear infinite; margin-bottom: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── EMPTY STATE ── */
+  .empty { text-align: center; padding: 30px; color: var(--cinza); }
+  .empty .icon { font-size: 2.5rem; margin-bottom: 8px; }
+  .empty p { font-size: .9rem; }
+
+  /* ── AUTORA ── */
+  .autora {
+    text-align: center; font-size: .7rem; color: var(--cinza);
+    padding: 6px 0 2px; opacity: .7; font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏆 Figurinhas da Copa</h1>
+  <div id="resumo-header">carregando…</div>
+</header>
+
+<main>
+  <!-- ── VIEW: INÍCIO ── -->
+  <div id="view-inicio" class="view active">
+    <div class="stats">
+      <div class="stat azul"><div class="n" id="s-total">—</div><div class="label">Total no álbum</div></div>
+      <div class="stat verde"><div class="n" id="s-tenho">—</div><div class="label">Tenho</div></div>
+      <div class="stat vermelho"><div class="n" id="s-faltam">—</div><div class="label">Faltam</div></div>
+      <div class="stat laranja"><div class="n" id="s-rep">—</div><div class="label">Repetidas</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Progresso da coleção</div>
+      <div class="progress-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+      <div class="progress-label" id="progress-label">0%</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Ações rápidas</div>
+      <button class="btn btn-primary btn-full" onclick="goTo('busca')">🔍 Busca Rápida</button>
+      <button class="btn btn-orange btn-full" onclick="goTo('repetidas')">🔄 Ver Repetidas</button>
+      <button class="btn btn-gray btn-full" onclick="goTo('album')">📖 Abrir Álbum</button>
+    </div>
+    <div class="autora">✏️ Especificação por Sara Morgensztern Bernardo</div>
+  </div>
+
+  <!-- ── VIEW: BUSCA RÁPIDA ── -->
+  <div id="view-busca" class="view">
+    <div class="card">
+      <div class="card-title">🔍 Busca Rápida</div>
+      <p style="font-size:.82rem;color:var(--cinza);margin-bottom:12px">Digite a sigla do país e o número da figurinha.</p>
+      <div class="input-row" style="margin-bottom:8px">
+        <input type="text" id="busca-sigla" placeholder="Sigla (ex: BRA)" maxlength="4" style="max-width:130px;text-transform:uppercase" oninput="this.value=this.value.toUpperCase()">
+        <input type="number" id="busca-num" placeholder="Nº" min="1" max="999" style="max-width:90px">
+        <button class="btn btn-primary" onclick="executarBusca()">Buscar</button>
+      </div>
+
+      <div id="busca-result">
+        <div class="res-title" id="busca-res-title"></div>
+        <div class="res-sub" id="busca-res-sub"></div>
+        <div id="busca-res-actions"></div>
+      </div>
+
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn btn-gray btn-sm" onclick="salvarBusca()" id="btn-salvar" style="display:none">💾 Salvar</button>
+        <button class="btn btn-gray btn-sm" onclick="limparBusca()">🗑️ Limpar busca</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Países disponíveis</div>
+      <div class="chips" id="paises-chips-busca"></div>
+    </div>
+  </div>
+
+  <!-- ── VIEW: REPETIDAS ── -->
+  <div id="view-repetidas" class="view">
+    <div class="card" id="rep-card">
+      <div class="card-title">🔄 Repetidas</div>
+      <div id="rep-list"><div class="loading"><div class="spinner"></div><br>carregando…</div></div>
+    </div>
+  </div>
+
+  <!-- ── VIEW: ÁLBUM ── -->
+  <div id="view-album" class="view">
+    <div id="album-content"><div class="loading"><div class="spinner"></div><br>carregando…</div></div>
+  </div>
+</main>
+
+<!-- ── BOTTOM NAV ── -->
+<nav>
+  <button class="active" id="nav-inicio" onclick="goTo('inicio')">
+    <span class="icon">🏠</span>Início
+  </button>
+  <button id="nav-busca" onclick="goTo('busca')">
+    <span class="icon">🔍</span>Busca
+  </button>
+  <button id="nav-repetidas" onclick="goTo('repetidas')">
+    <span class="icon">🔄</span>Repetidas
+  </button>
+  <button id="nav-album" onclick="goTo('album')">
+    <span class="icon">📖</span>Álbum
+  </button>
+</nav>
+
+<!-- ── MODAL TROCA ── -->
+<div id="modal-overlay" onclick="fecharModal(event)">
+  <div id="modal">
+    <button class="close-modal" onclick="fecharModal()">✕</button>
+    <h3>🔄 Registrar Troca</h3>
+    <p style="font-size:.82rem;color:var(--cinza);margin-bottom:14px">Você entrega: <strong id="modal-entregue-nome"></strong><br>Qual figurinha você vai receber?</p>
+    <div class="input-row" style="margin-bottom:8px">
+      <input type="text" id="modal-sigla" placeholder="Sigla (ex: ARG)" maxlength="4" oninput="this.value=this.value.toUpperCase()" style="max-width:120px">
+      <input type="number" id="modal-num" placeholder="Nº" min="1" max="999" style="max-width:80px">
+    </div>
+    <button class="btn btn-green btn-full" onclick="confirmarTroca()">✅ Confirmar troca</button>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div id="toast"></div>
+
+<script>
+const API = '';
+let currentView = 'inicio';
+let buscaFigId = null;
+let trocaEntregueId = null;
+
+// ── Navegação ──────────────────────────────────────────────────────────────
+function goTo(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  document.getElementById('nav-' + view).classList.add('active');
+  currentView = view;
+  if (view === 'repetidas') carregarRepetidas();
+  if (view === 'album') carregarAlbum();
+  if (view === 'inicio') carregarResumo();
+  if (view === 'busca') carregarPaisesChips();
+}
+
+// ── Toast ──────────────────────────────────────────────────────────────────
+function toast(msg, dur = 2200) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+// ── API helpers ────────────────────────────────────────────────────────────
+async function apiFetch(url) {
+  const r = await fetch(API + url);
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function apiPost(url, body) {
+  const r = await fetch(API + url, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+
+// ── Resumo / início ────────────────────────────────────────────────────────
+async function carregarResumo() {
+  try {
+    const d = await apiFetch('/api/resumo');
+    document.getElementById('s-total').textContent = d.total;
+    document.getElementById('s-tenho').textContent = d.tenho;
+    document.getElementById('s-faltam').textContent = d.faltam;
+    document.getElementById('s-rep').textContent = d.repetidas;
+    const pct = d.total > 0 ? Math.round(d.tenho / d.total * 100) : 0;
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = pct + '%  (' + d.tenho + '/' + d.total + ')';
+    document.getElementById('resumo-header').innerHTML = d.tenho + '/' + d.total + ' figurinhas<br>' + d.repetidas + ' repetidas';
+  } catch(e) { console.error(e); }
+}
+
+// ── Busca Rápida ───────────────────────────────────────────────────────────
+async function carregarPaisesChips() {
+  const el = document.getElementById('paises-chips-busca');
+  if (el.children.length > 0) return;
+  try {
+    const paises = await apiFetch('/api/paises');
+    el.innerHTML = paises.map(s =>
+      `<span class="chip falta" onclick="preencherSigla('${s}')">${s}</span>`
+    ).join('');
+  } catch(e) {}
+}
+
+function preencherSigla(sigla) {
+  document.getElementById('busca-sigla').value = sigla;
+  document.getElementById('busca-num').focus();
+}
+
+async function executarBusca() {
+  const sigla = document.getElementById('busca-sigla').value.trim().toUpperCase();
+  const num = parseInt(document.getElementById('busca-num').value);
+  if (!sigla || !num) { toast('⚠️ Preencha a sigla e o número.'); return; }
+  const el = document.getElementById('busca-result');
+  el.style.display = 'block';
+  el.className = '';
+  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const fig = await apiFetch(`/api/busca?sigla=${sigla}&numero=${num}`);
+    buscaFigId = fig.id;
+    const tem = fig.quantidade >= 1;
+    el.className = tem ? 'tem' : 'falta';
+    document.getElementById('busca-res-title').textContent = tem
+      ? `✅ Você TEM essa figurinha!`
+      : `❌ Você NÃO TEM essa figurinha`;
+    const status = fig.quantidade >= 2 ? ` (${fig.quantidade} cópias — repetida)` : (fig.quantidade === 1 ? ' (1 cópia)' : ' (0 cópias)');
+    document.getElementById('busca-res-sub').textContent =
+      `${fig.sigla} #${fig.numero} — ${fig.nome}${status}`;
+    const actions = document.getElementById('busca-res-actions');
+    if (tem) {
+      actions.innerHTML = `<button class="btn btn-orange btn-sm" onclick="adicionarRepetida(${fig.id})">🔄 Adicionar às Repetidas</button>`;
+    } else {
+      actions.innerHTML = `<button class="btn btn-green btn-sm" onclick="incluirFigurinha(${fig.id})">➕ Incluir no Álbum</button>`;
+    }
+    document.getElementById('btn-salvar').style.display = '';
+  } catch(e) {
+    el.className = '';
+    el.innerHTML = `<div class="res-title" style="color:var(--vermelho)">⚠️ Figurinha não encontrada</div><div class="res-sub">Verifique a sigla e o número.</div>`;
+    buscaFigId = null;
+  }
+}
+
+async function adicionarRepetida(id) {
+  await apiPost('/api/incluir', { figurinha_id: id });
+  toast('🔄 Adicionada às repetidas!');
+  carregarResumo();
+  limparBusca();
+}
+
+async function incluirFigurinha(id) {
+  await apiPost('/api/incluir', { figurinha_id: id });
+  toast('✅ Figurinha incluída no álbum!');
+  carregarResumo();
+  limparBusca();
+}
+
+function salvarBusca() {
+  toast('💾 Resultado salvo.');
+  document.getElementById('btn-salvar').style.display = 'none';
+}
+
+function limparBusca() {
+  document.getElementById('busca-sigla').value = '';
+  document.getElementById('busca-num').value = '';
+  document.getElementById('busca-result').style.display = 'none';
+  document.getElementById('btn-salvar').style.display = 'none';
+  buscaFigId = null;
+}
+
+// ── Repetidas ──────────────────────────────────────────────────────────────
+async function carregarRepetidas() {
+  const el = document.getElementById('rep-list');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const reps = await apiFetch('/api/repetidas');
+    if (reps.length === 0) {
+      el.innerHTML = '<div class="empty"><div class="icon">🎉</div><p>Nenhuma repetida no momento!</p></div>';
+      return;
+    }
+    el.innerHTML = reps.map(f => `
+      <div class="fig-item" id="rep-${f.id}">
+        <div class="fig-badge repetida">${f.sigla}<br>#${f.numero}</div>
+        <div class="fig-info">
+          <div class="nome">${f.nome}</div>
+          <div class="sub">${f.quantidade} cópias</div>
+        </div>
+        <div class="fig-actions">
+          <button class="btn btn-green btn-sm" onclick="abrirModalTroca(${f.id},'${f.nome}')">🔄</button>
+          <button class="btn btn-red btn-sm" onclick="excluirRepetida(${f.id})">🗑️</button>
+        </div>
+      </div>
+    `).join('');
+  } catch(e) {
+    el.innerHTML = '<div class="empty"><p>Erro ao carregar.</p></div>';
+  }
+}
+
+async function excluirRepetida(id) {
+  if (!confirm('Remover uma cópia desta repetida?')) return;
+  await apiPost('/api/excluir-repetida', { figurinha_id: id });
+  toast('🗑️ Repetida removida!');
+  carregarRepetidas();
+  carregarResumo();
+}
+
+// ── Modal Troca ────────────────────────────────────────────────────────────
+function abrirModalTroca(id, nome) {
+  trocaEntregueId = id;
+  document.getElementById('modal-entregue-nome').textContent = nome;
+  document.getElementById('modal-sigla').value = '';
+  document.getElementById('modal-num').value = '';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function fecharModal(e) {
+  if (!e || e.target === document.getElementById('modal-overlay') || e.currentTarget === document.querySelector('.close-modal')) {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+}
+
+async function confirmarTroca() {
+  const sigla = document.getElementById('modal-sigla').value.trim().toUpperCase();
+  const num = parseInt(document.getElementById('modal-num').value);
+  if (!sigla || !num) { toast('⚠️ Preencha a figurinha recebida.'); return; }
+  try {
+    const fig = await apiFetch(`/api/busca?sigla=${sigla}&numero=${num}`);
+    await apiPost('/api/trocar', { entregue_id: trocaEntregueId, recebida_id: fig.id });
+    toast('✅ Troca registrada com sucesso!');
+    fecharModal();
+    carregarRepetidas();
+    carregarResumo();
+  } catch(e) {
+    toast('⚠️ Figurinha recebida não encontrada no catálogo.');
+  }
+}
+
+// ── Álbum ──────────────────────────────────────────────────────────────────
+async function carregarAlbum() {
+  const el = document.getElementById('album-content');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div><br>carregando álbum…</div>';
+  try {
+    const paises = await apiFetch('/api/paises');
+    const sections = await Promise.all(paises.map(s => apiFetch(`/api/pais/${s}`)));
+    el.innerHTML = '';
+    paises.forEach((sigla, i) => {
+      const figs = sections[i];
+      const tenho = figs.filter(f => f.quantidade >= 1).length;
+      const total = figs.length;
+      const pct = Math.round(tenho / total * 100);
+
+      const sec = document.createElement('div');
+      sec.className = 'pais-section';
+      sec.innerHTML = `
+        <div class="pais-header" onclick="togglePais(this)">
+          <span>🏴 ${sigla}</span>
+          <span class="pais-stats">${tenho}/${total} (${pct}%) <span class="chevron">▼</span></span>
+        </div>
+        <div class="pais-body">
+          ${figs.map(f => {
+            const cls = f.quantidade >= 2 ? 'repetida' : (f.quantidade === 1 ? 'tem' : 'falta');
+            const label = f.quantidade >= 2 ? `${f.quantidade}x` : (f.quantidade === 1 ? '✓' : '+');
+            return `
+              <div class="fig-item">
+                <div class="fig-badge ${cls}">${sigla}<br>#${f.numero}</div>
+                <div class="fig-info">
+                  <div class="nome">${f.nome}</div>
+                  <div class="sub">${cls === 'tem' ? 'tenho' : cls === 'repetida' ? 'repetida' : 'falta'}</div>
+                </div>
+                <div class="fig-actions">
+                  ${f.quantidade === 0
+                    ? `<button class="btn btn-green btn-sm" onclick="addAlbum(${f.id},this)">➕</button>`
+                    : `<button class="btn btn-orange btn-sm" onclick="addRepAlbum(${f.id},this)">🔄</button>
+                       <button class="btn btn-red btn-sm" onclick="remAlbum(${f.id},this)">➖</button>`
+                  }
+                </div>
+              </div>`;
+          }).join('')}
+        </div>`;
+      el.appendChild(sec);
+    });
+  } catch(e) {
+    el.innerHTML = '<div class="empty"><p>Erro ao carregar álbum.</p></div>';
+  }
+}
+
+function togglePais(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('open');
+}
+
+async function addAlbum(id, btn) {
+  await apiPost('/api/incluir', { figurinha_id: id });
+  toast('✅ Incluída no álbum!');
+  carregarAlbum(); carregarResumo();
+}
+
+async function addRepAlbum(id, btn) {
+  await apiPost('/api/incluir', { figurinha_id: id });
+  toast('🔄 Adicionada às repetidas!');
+  carregarAlbum(); carregarResumo();
+}
+
+async function remAlbum(id, btn) {
+  await apiPost('/api/excluir-repetida', { figurinha_id: id });
+  toast('➖ Removida!');
+  carregarAlbum(); carregarResumo();
+}
+
+// ── Boot ────────────────────────────────────────

@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: figurinhas-da-copa
+    runtime: python
+    buildCommand: pip install -r api/requirements.txt
+    startCommand: cd api && uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DB_PATH
+        value: /var/data/figurinhas.db
+    disk:
+      name: figurinhas-data
+      mountPath: /var/data
+      sizeGB: 1
